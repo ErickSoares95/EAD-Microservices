@@ -1,6 +1,7 @@
 package com.ead.authuser.models;
 
 import com.ead.authuser.enums.UserStatus;
+import com.ead.authuser.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -34,7 +35,7 @@ public class UserModel implements Serializable {
     private UserStatus userStatus;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserStatus userType;
+    private UserType userType;
     @Column(length = 20)
     private String phoneNumber;
     @Column(length = 20)
