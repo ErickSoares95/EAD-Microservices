@@ -30,6 +30,8 @@ public class UserModel implements Serializable {
     @Column(nullable = false, length = 255)
     @JsonIgnore
     private String  password;
+    @Column(length = 255)
+    private String fullName;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
@@ -41,7 +43,7 @@ public class UserModel implements Serializable {
     @Column(length = 20)
     private String cpf;
     @Column
-    private String imgUrl;
+    private String imageUrl;
     @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime creationDate;
