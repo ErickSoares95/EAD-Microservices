@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -44,11 +46,17 @@ public class CourseModel implements Serializable {
     private CourseLevel courseLevel;
     @Column(nullable = false)
     private UUID userInstructor;
-
-    //Set foi utilizado porque o hibernate trabalha melhor com ele, podendo assim trazer varias entidades relacionadas a
-    // curso e também evita problemas de multiplas querys.
+    /*
+     * Set foi utilizado porque o hibernate trabalha melhor com ele, podendo assim trazer varias entidades relacionadas a
+     * curso e também evita problemas de multiplas querys.
+     * fetch type é como os dados vão ser carregados dos bancos de dados(EAGER and LAZY)
+     * FetchMode: Select: um busca para o curso e uma busca para cada module do curso. Sempre lazy
+     * Join: na mesa consulta curso e modulos. Sempre EAGER
+     * SUBSLECT: Uma consulta para trazer o curso e outra para todos os mudulos. Sempre lazy
+     */
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) //Campo não mostrado nos gets, apenas escrita
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
     private Set<ModuleModel> modules;
 
 }
