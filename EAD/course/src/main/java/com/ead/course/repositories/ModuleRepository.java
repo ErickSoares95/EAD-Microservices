@@ -14,10 +14,8 @@ public interface ModuleRepository extends JpaRepository<ModuleModel, UUID> {
     //Exemplo de como trazer um atributo de relacionamento fetch lazy em um determinado método.
     //@EntityGraph(attributePaths = {"course"})
     //ModuleModel findByTitle(String title);
-
     //Consulta costumizada
     //@Modifying para realizar alguma modificação(Update, Delete)
-    @Modifying
     @Query(value = "select * from tb_modules where course_course_id = : courseId", nativeQuery = true)
     List<ModuleModel> findAllModulesIntoCourse(@Param("courseId") UUID courseId);
 }

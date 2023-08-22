@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -53,6 +55,10 @@ public class CourseModel implements Serializable {
      * FetchMode: Select: um busca para o curso e uma busca para cada module do curso. Sempre lazy
      * Join: na mesa consulta curso e modulos. Sempre EAGER
      * SUBSLECT: Uma consulta para trazer o curso e outra para todos os mudulos. Sempre lazy
+     * Modos de deletar. JPA 1 SELECT para cada deleção, uma query para o curso 1 para todos os modulos
+     * @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true) JPA
+     * @OnDelete(action = OnDeleteAction.CASCADE) Banco de dados
+     * Ou utilizado metodos customizados pecorrendo os repositories e deletando
      */
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) //Campo não mostrado nos gets, apenas escrita
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
