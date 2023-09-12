@@ -37,15 +37,17 @@ public class UserCourseController {
 
     @GetMapping("/users/{userId}/courses")
     public ResponseEntity<Page<CourseDto>> getAllCoursesByUser(
-                                                                @PageableDefault(page = 0, size = 10, sort = "courseId", direction = Sort.Direction.ASC)Pageable pageable,
-                                                                @PathVariable(value = "userId")UUID userId) {
+            @PageableDefault(page = 0, size = 10, sort = "courseId", direction = Sort.Direction.ASC)Pageable pageable,
+            @PathVariable(value = "userId")UUID userId) {
 
         return ResponseEntity.status(HttpStatus.OK).body(courseClient.getAllCoursesByUser(userId, pageable));
     }
 
     @PostMapping("/users/{userId}/courses/subscription")
-    public ResponseEntity<Object> saveSubscriptionUserInCourse(@PathVariable(value = "userId")UUID userId,
-                                                               @RequestBody @Valid UserCourseDto userCourseDto){
+    public ResponseEntity<Object> saveSubscriptionUserInCourse(
+            @PathVariable(value = "userId")UUID userId,
+            @RequestBody @Valid UserCourseDto userCourseDto) {
+
         Optional<UserModel> userModelOptional = userService.findById(userId);
         if (!userModelOptional.isPresent()){
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("User no found");
