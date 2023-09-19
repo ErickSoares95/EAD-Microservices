@@ -1,0 +1,13 @@
+server:
+  port: 8761
+#nome do service
+spring:
+  application:
+    name: ead-service-registry
+
+eureka:
+  client:
+    register-with-eureka: false #Deixar o service apenas como Servidor
+    fetch-registry: false #Não buscar nada nesse service
+
+
