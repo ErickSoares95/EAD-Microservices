@@ -12,4 +12,5 @@ public class AuthuserApplication {
 		SpringApplication.run(AuthuserApplication.class, args);
 	}
 
+
 }
